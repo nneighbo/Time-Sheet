@@ -11,29 +11,31 @@ $(document).ready(function () {
     firebase.initializeApp(config);
 
     var database = firebase.database();
-    var employeeName = ""; 
+    var employeeName = "";
     var employeeRole = "";
     var employeeRate = 0;
     var employeeStart = 0;
-    
-    $("#new-employee-submit").on("click", function(event) {
-    event.preventDefault();
-    $("#employee-name").text(snapshot);
-    console.log(this);
-    $("#employee-role");
-    $("#employee-start-date");
-    $("#employee-monthly-rate");
 
-    database.ref().push({
-        name: employeeName,
-        role: employeeRole,
-        start: employeeStart,
-        rate: employeeRate,
+    $("#new-employee-submit").on("click", function (event) {
+        event.preventDefault();
+        employeeName = $("#employee-name").val();
+        console.log(this);
+        employeeRole = $("#employee-role").val();
+        employeeRate =$("#employee-monthly-rate").val();
+        employeeStart =  $("#employee-start-date").val();
+
+        database.ref().push({
+            name: employeeName,
+            role: employeeRole,
+            start: employeeStart,
+            rate: employeeRate,
+        });
+
     });
 
-    database.ref().on("child_added", function(snapshot){
+    database.ref().on("child_added", function (snapshot) {
         console.log(snapshot.val());
-        
+
     });
 
 });
