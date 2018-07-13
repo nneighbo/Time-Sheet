@@ -19,10 +19,9 @@ $(document).ready(function () {
     $("#new-employee-submit").on("click", function (event) {
         event.preventDefault();
         employeeName = $("#employee-name").val();
-        console.log(this);
         employeeRole = $("#employee-role").val();
-        employeeRate =$("#employee-monthly-rate").val();
-        employeeStart =  $("#employee-start-date").val();
+        employeeRate = $("#employee-monthly-rate").val();
+        employeeStart = $("#employee-start-date").val();
 
         database.ref().push({
             name: employeeName,
@@ -34,8 +33,25 @@ $(document).ready(function () {
     });
 
     database.ref().on("child_added", function (snapshot) {
-        console.log(snapshot.val());
-        
+        var body = $("<tbody>");
+        var nameTd = $("<th>");
+        nameTd.attr("scope", "row");
+        var roleTd = $("<td>");
+        var startTd = $("<td>");
+        var rateTd = $("<td>");
+
+        nameTd.text(snapshot.val().name);
+        rateTd.text(snapshot.val().rate);
+        roleTd.text(snapshot.val().role);
+        startTd.text(snapshot.val().start);
+
+        body.append(nameTd);
+        body.append(roleTd);
+        body.append(startTd);
+        body.append(rateTd);
+
+        $("table").append(body);
+
     });
 
 });
